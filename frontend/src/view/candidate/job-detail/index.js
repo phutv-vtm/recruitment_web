@@ -42,6 +42,8 @@ function Job() {
   const [showDialog, setShowDialog] = useState(false);
   const [canApply, setCanApply] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isLoadingCanApply, setIsLoadingCanApply] = useState(true);
+  const [isLoadingIsSaved, setIsLoadingIsSaved] = useState(true);
   const [industries, setIndustries] = useState([]);
   const [recommendData, setRecommendData] = useState({});
   const [isLoadingRecommend, setIsLoadingRecommend] = useState(true);
@@ -69,8 +71,13 @@ function Job() {
   };
 
   const checkCanApply = async () => {
-    const res = await jobApi.checkCanApply(id);
-    setCanApply(res.value);
+    try {
+      setIsLoadingCanApply(true);
+      const res = await jobApi.checkCanApply(id);
+      setCanApply(res.value);
+    } finally {
+      setIsLoadingCanApply(false);
+    }
   };
 
   const checkLoggedIn = () => {
@@ -81,8 +88,13 @@ function Job() {
     }
   };
   const checkJobSaved = async () => {
-    const res = await candidateApi.checkJobSaved(id);
-    setIsSaved(res.value);
+    try {
+      setIsLoadingIsSaved(true);
+      const res = await candidateApi.checkJobSaved(id);
+      setIsSaved(res.value);
+    } finally {
+      setIsLoadingIsSaved(false);
+    }
   };
 
   const getCurJobRecommendData = async () => {
@@ -128,6 +140,9 @@ function Job() {
       checkCanApply();
       checkJobSaved();
       getCurJobRecommendData();
+    } else if (!localStorage.getItem("candidate_jwt")) {
+      setIsLoadingCanApply(false);
+      setIsLoadingIsSaved(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
@@ -174,17 +189,32 @@ function Job() {
                   <h5 className="mt-3 text-main fw-600">{job.jname}</h5>
                   <div className="clearfix mt-3 mb-2">
                     <button
-                      className="btn bg-main text-white ts-sm"
-                      disabled={!canApply}
+                      className={clsx("btn bg-main text-white ts-sm", isLoadingCanApply && "px-5")}
+                      disabled={isLoadingCanApply || !canApply}
                       onClick={checkLoggedIn}
                     >
-                      {canApply ? "Ứng tuyển" : "Đã ứng tuyển"}
+                      {isLoadingCanApply ? (
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                        />
+                      ) : canApply ? (
+                        "Ứng tuyển"
+                      ) : (
+                        "Đã ứng tuyển"
+                      )}
                     </button>
                     <button
-                      className="btn border-danger text-danger ms-5 ts-sm"
+                      className={clsx("btn border-danger text-danger ms-5 ts-sm", isLoadingIsSaved && "px-5")}
+                      disabled={isLoadingIsSaved}
                       onClick={() => handleClickSaveBtn(!isSaved)}
                     >
-                      {!isSaved ? (
+                      {isLoadingIsSaved ? (
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                        />
+                      ) : !isSaved ? (
                         <div>
                           <AiOutlineHeart className="fs-5" /> Lưu việc làm
                         </div>
