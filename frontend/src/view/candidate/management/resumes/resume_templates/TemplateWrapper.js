@@ -2,9 +2,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import sample from "./sample";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { CandidateContext } from "../../layouts";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import dayjs from "dayjs";
 import resumeApi from "../../../../../api/resume";
 import { toast } from "react-toastify";
@@ -48,7 +48,7 @@ export default function TemplateWrapper({
   const curTemplate = templateList.find((item) => item.id === templateId);
 
   const [style, setStyle] = useState(structuredClone(curTemplate.defaultStyle));
-  
+
   useEffect(() => {
     if (mode) setCvMode(mode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,14 +59,15 @@ export default function TemplateWrapper({
   const {
     register,
     handleSubmit,
-    watch,
-    // getFieldState,
+    control,
     formState: { errors, isDirty },
     reset,
   } = useForm({
     defaultValues: {
       title_size: style.title.fontSize,
       content_size: style.content.fontSize,
+      bg_main_color: style["cv-bg-main"].backgroundColor,
+      title_color: style.title.color,
     },
   });
 
@@ -160,6 +161,8 @@ export default function TemplateWrapper({
 
   useEffect(() => {
     reset(); //reset form to get defaultValue correctly
+    changeElementsStyle(); // re-apply styles to any new cv-bg-main elements added after data load
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [basicInfor, reset]);
 
   useEffect(() => {
@@ -181,6 +184,7 @@ export default function TemplateWrapper({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cvMode]);
 
+  // Sync fullname from basicInfor
   useEffect(() => {
     if (cvMode === "CREATE_1") {
       if (basicInfor.lastname && basicInfor.firstname)
@@ -189,51 +193,21 @@ export default function TemplateWrapper({
       setFullname(basicInfor.fullname);
     }
   }, [basicInfor, cvMode]);
+
+  // Populate all sections at once when CREATE_1 mode is active
   useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      setBasicInfor(personal);
-    }
-  }, [cvMode, personal]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (educations.length > 0) setCvEducations(educations);
-    }
-  }, [cvMode, educations]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (experiences.length > 0) setCvExperiences(experiences);
-    }
-  }, [cvMode, experiences]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (projects.length > 0) setCvProjects(projects);
-    }
-  }, [cvMode, projects]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (skills.length > 0) setCvSkills(skills);
-    }
-  }, [cvMode, skills]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (certificates.length > 0) setCvCertificates(certificates);
-    }
-  }, [certificates, cvMode]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (prizes.length > 0) setCvPrizes(prizes);
-    }
-  }, [cvMode, prizes]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (activities.length > 0) setCvActivities(activities);
-    }
-  }, [activities, cvMode]);
-  useEffect(() => {
-    if (cvMode === "CREATE_1") {
-      if (others.length > 0) setCvOthers(others);
-    }
-  }, [cvMode, others]);
+    if (cvMode !== "CREATE_1") return;
+    setBasicInfor(personal);
+    if (educations.length > 0) setCvEducations(educations);
+    if (experiences.length > 0) setCvExperiences(experiences);
+    if (projects.length > 0) setCvProjects(projects);
+    if (skills.length > 0) setCvSkills(skills);
+    if (certificates.length > 0) setCvCertificates(certificates);
+    if (prizes.length > 0) setCvPrizes(prizes);
+    if (activities.length > 0) setCvActivities(activities);
+    if (others.length > 0) setCvOthers(others);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cvMode, personal, educations, experiences, projects, skills, certificates, prizes, activities, others]);
 
   const formatDate = (str) => {
     const arr = str.split(/[/, -]/);
@@ -374,13 +348,11 @@ export default function TemplateWrapper({
   const getImgData = async () => {
     let cvElement = document.querySelector("#resume");
     const imgData = await htmlToImage.toPng(cvElement);
-    // const imgData = canvas.toDataURL("image/png");
-
     return imgData;
   };
 
   const handleDownload = async () => {
-    let filename = watch("title") + ".png";
+    let filename = control._formValues.title + ".png";
     let link = document.createElement("a");
 
     const imgData = await getImgData();
@@ -389,9 +361,6 @@ export default function TemplateWrapper({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    // const pdf = new jsPDF();
-    // pdf.addImage(imgData, "PNG", 0, 0);
-    // pdf.save(filename);
   };
 
   const changeElementsStyle = () => {
@@ -411,14 +380,9 @@ export default function TemplateWrapper({
     }
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      changeElementsStyle();
-    }, 200);
-
-    return () => {
-      clearInterval(intervalId);
-    };
+  // Apply styles directly when style changes — useLayoutEffect prevents flash before first paint
+  useLayoutEffect(() => {
+    changeElementsStyle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [style]);
 
@@ -429,86 +393,109 @@ export default function TemplateWrapper({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cvMode]);
 
-  useEffect(() => {
-    if (isDirty) {
-      let temp = { ...style };
-      const color = watch("title_color");
-      temp.title.color = color;
-      temp["cv-fullname"].color = color;
-      if (style["personal-icon"]) temp["personal-icon"].color = color;
-      if (style["cv-line"]) temp["cv-line"].borderColor = color;
-      setStyle(temp);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch("title_color")]);
+  // useWatch hooks for style controls — avoids watch() anti-pattern in deps
+  const titleColor = useWatch({ control, name: "title_color" });
+  const bgMainColor = useWatch({ control, name: "bg_main_color" });
+  const titleSize = useWatch({ control, name: "title_size" });
+  const contentSize = useWatch({ control, name: "content_size" });
+  const fontFamily = useWatch({ control, name: "font_family" });
 
   useEffect(() => {
-    if (isDirty) {
-      let temp = { ...style };
-      temp["cv-bg-main"].backgroundColor = watch("bg_main_color");
-      setStyle(temp);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch("bg_main_color")]);
+    if (!isDirty) return;
+    setStyle((prev) => {
+      const temp = { ...prev };
+      temp.title.color = titleColor;
+      temp["cv-fullname"].color = titleColor;
+      if (prev["personal-icon"]) temp["personal-icon"].color = titleColor;
+      if (prev["cv-line"]) temp["cv-line"].borderColor = titleColor;
+      return temp;
+    });
+  }, [titleColor, isDirty]);
 
   useEffect(() => {
-    if (isDirty) {
-      let temp = { ...style };
-      temp.title.fontSize = watch("title_size");
-      setStyle(temp);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch("title_size")]);
+    if (!isDirty) return;
+    setStyle((prev) => {
+      const temp = { ...prev };
+      temp["cv-bg-main"].backgroundColor = bgMainColor;
+      return temp;
+    });
+  }, [bgMainColor, isDirty]);
 
   useEffect(() => {
-    if (isDirty) {
-      let temp = { ...style };
-      temp.content.fontSize = watch("content_size");
-      setStyle(temp);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch("content_size")]);
+    if (!isDirty) return;
+    setStyle((prev) => {
+      const temp = { ...prev };
+      temp.title.fontSize = titleSize;
+      return temp;
+    });
+  }, [titleSize, isDirty]);
 
   useEffect(() => {
-    if (isDirty) {
-      let temp = { ...style };
-      temp.fontFamily =
-        watch("font_family") === "Mặc định" ? "" : watch("font_family");
-      setStyle(temp);
-    }
+    if (!isDirty) return;
+    setStyle((prev) => {
+      const temp = { ...prev };
+      temp.content.fontSize = contentSize;
+      return temp;
+    });
+  }, [contentSize, isDirty]);
+
+  useEffect(() => {
+    if (!isDirty) return;
+    setStyle((prev) => {
+      const temp = { ...prev };
+      temp.fontFamily = fontFamily === "Mặc định" ? "" : fontFamily;
+      return temp;
+    });
+  }, [fontFamily, isDirty]);
+
+  const contextValue = useMemo(
+    () => ({
+      parts,
+      setParts,
+      partMenu,
+      setPartMenu,
+      basicInfor,
+      fullname,
+      cvEducations,
+      setCvEducations,
+      cvExperiences,
+      setCvExperiences,
+      cvProjects,
+      setCvProjects,
+      cvSkills,
+      setCvSkills,
+      cvCertificates,
+      setCvCertificates,
+      cvPrizes,
+      setCvPrizes,
+      cvActivities,
+      setCvActivities,
+      cvOthers,
+      setCvOthers,
+      register,
+      errors,
+      handleDisplayImg,
+    }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch("font_family")]);
+    [
+      parts,
+      partMenu,
+      basicInfor,
+      fullname,
+      cvEducations,
+      cvExperiences,
+      cvProjects,
+      cvSkills,
+      cvCertificates,
+      cvPrizes,
+      cvActivities,
+      cvOthers,
+      errors,
+    ]
+  );
 
   return (
-    <TemplateContext.Provider
-      value={{
-        parts,
-        setParts,
-        partMenu,
-        setPartMenu,
-        basicInfor,
-        fullname,
-        cvEducations,
-        setCvEducations,
-        cvExperiences,
-        setCvExperiences,
-        cvProjects,
-        setCvProjects,
-        cvSkills,
-        setCvSkills,
-        cvCertificates,
-        setCvCertificates,
-        cvPrizes,
-        setCvPrizes,
-        cvActivities,
-        setCvActivities,
-        cvOthers,
-        setCvOthers,
-        register,
-        errors,
-        handleDisplayImg,
-      }}
-    >
+    <TemplateContext.Provider value={contextValue}>
       {mode !== "READ" ? (
         <form>
           <div className="ms-3 ps-3 py-2 border-top shadow-sm bg-white">

@@ -1,6 +1,6 @@
 import "./layout.css";
 import { useNavigate } from "react-router-dom";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import candidateApi from "../../../../api/candidate";
 import educationApi from "../../../../api/education";
@@ -33,7 +33,7 @@ function CandidateLayout(props) {
   const [others, setOthers] = useState([]);
   const [cvMode, setCvMode] = useState("CREATE_0");
 
-  const getPersonal = async () => {
+  const getPersonal = useCallback(async () => {
     try {
       setIsLoadingPersonal(true);
       let res = await candidateApi.getCurrent();
@@ -44,43 +44,43 @@ function CandidateLayout(props) {
     } finally {
       setIsLoadingPersonal(false);
     }
-  };
-  const getEducations = async () => {
+  }, []);
+  const getEducations = useCallback(async () => {
     const res = await educationApi.getByCurrentCandidateProfile();
     setEducations(res);
-  };
-  const getExperiences = async () => {
+  }, []);
+  const getExperiences = useCallback(async () => {
     const res = await experienceApi.getByCurrentCandidateProfile();
     setExperiences(res);
-  };
-  const getProjects = async () => {
+  }, []);
+  const getProjects = useCallback(async () => {
     const res = await projectApi.getByCurrentCandidateProfile();
     setProjects(res);
-  };
-  const getSkills = async () => {
+  }, []);
+  const getSkills = useCallback(async () => {
     const res = await skillApi.getByCurrentCandidateProfile();
     setSkills(res);
-  };
-  const getCertificates = async () => {
+  }, []);
+  const getCertificates = useCallback(async () => {
     const res = await certificateApi.getByCurrentCandidateProfile();
     setCertificates(res);
-  };
-  const getPrizes = async () => {
+  }, []);
+  const getPrizes = useCallback(async () => {
     const res = await prizeApi.getByCurrentCandidateProfile();
     setPrizes(res);
-  };
-  const getActivities = async () => {
+  }, []);
+  const getActivities = useCallback(async () => {
     const res = await activityApi.getByCurrentCandidateProfile();
     setActivities(res);
-  };
-  const getOthers = async () => {
+  }, []);
+  const getOthers = useCallback(async () => {
     const res = await otherApi.getByCurrentCandidateProfile();
     setOthers(res);
-  };
-  const handleChangePage = (url) => {
+  }, []);
+  const handleChangePage = useCallback((url) => {
     nav(url);
     setCurUrl(url);
-  };
+  }, [nav, setCurUrl]);
 
   useEffect(() => {
     setCurUrl(window.location.pathname);
@@ -98,40 +98,58 @@ function CandidateLayout(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
+  const contextValue = useMemo(
+    () => ({
+      personal,
+      setPersonal,
+      isLoadingPersonal,
+      educations,
+      setEducations,
+      experiences,
+      setExperiences,
+      projects,
+      setProjects,
+      skills,
+      setSkills,
+      certificates,
+      setCertificates,
+      prizes,
+      setPrizes,
+      activities,
+      setActivities,
+      others,
+      setOthers,
+      getPersonal,
+      getEducations,
+      getExperiences,
+      getProjects,
+      getSkills,
+      getCertificates,
+      getPrizes,
+      getActivities,
+      getOthers,
+      cvMode,
+      setCvMode,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      personal,
+      isLoadingPersonal,
+      educations,
+      experiences,
+      projects,
+      skills,
+      certificates,
+      prizes,
+      activities,
+      others,
+      cvMode,
+    ]
+  );
+
   return (
     <CandidateContext.Provider
-      value={{
-        personal,
-        setPersonal,
-        isLoadingPersonal,
-        educations,
-        setEducations,
-        experiences,
-        setExperiences,
-        projects,
-        setProjects,
-        skills,
-        setSkills,
-        certificates,
-        setCertificates,
-        prizes,
-        setPrizes,
-        activities,
-        setActivities,
-        others,
-        setOthers,
-        getPersonal,
-        getEducations,
-        getExperiences,
-        getProjects,
-        getSkills,
-        getCertificates,
-        getPrizes,
-        getActivities,
-        getOthers,
-        cvMode,
-        setCvMode,
-      }}
+      value={contextValue}
     >
       <div className="d-flex flex-column flex-lg-row">
         <div className="ts-smd fw-600 text-secondary menu-part bg-white">

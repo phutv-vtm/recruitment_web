@@ -158,6 +158,11 @@
 .w-95 {
   width: 95% !important;
 }
+/* cv-bg-main elements are transparent by default so new dynamic children
+   inherit the panel color without needing changeElementsStyle() to re-run */
+.cv-bg-main {
+  background-color: transparent;
+}
 /* custom cv input, textarea */
 .cv-input {
   border: none;

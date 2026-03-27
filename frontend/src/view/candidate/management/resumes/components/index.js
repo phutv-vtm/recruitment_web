@@ -65,7 +65,7 @@ export const InforPart = ({ children, className, type, disabled }) => {
         showOp && "border border-secondary",
         className
       )}
-      onMouseMove={() => {
+      onMouseEnter={() => {
         if (!disabled) setShowOp(true);
       }}
       onMouseLeave={() => setShowOp(false)}
@@ -88,7 +88,7 @@ export const InforPart = ({ children, className, type, disabled }) => {
             />
             <div
               className="position-relative"
-              onMouseMove={() => setShowMenu(true)}
+              onMouseEnter={() => setShowMenu(true)}
               onMouseLeave={() => setShowMenu(false)}
             >
               <IoMdAddCircleOutline
@@ -166,7 +166,7 @@ export const ContentItem = ({
         showOp && "border border-secondary",
         className
       )}
-      onMouseMove={() => {
+      onMouseEnter={() => {
         if (!disabled) setShowOp(true);
       }}
       onMouseLeave={() => setShowOp(false)}
@@ -188,7 +188,7 @@ export const ContentItem = ({
             {menuVaule && (
               <div
                 className="position-relative"
-                onMouseMove={() => setShowMenu(true)}
+                onMouseEnter={() => setShowMenu(true)}
                 onMouseLeave={() => setShowMenu(false)}
               >
                 <IoMdSettings className="fs-5 text-secondary pointer mb-1" />
