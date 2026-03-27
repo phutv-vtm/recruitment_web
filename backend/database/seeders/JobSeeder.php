@@ -51,7 +51,7 @@ class JobSeeder extends Seeder
                 ● Cơ hội nâng cao trình độ ngoại ngữ và kỹ năng phát triển nghề nghiệp, có nhiều cơ hội thăng tiến trong công việc.
                 ● Các chế độ phúc lợi, chế độ bảo hiểm theo quy định của Công ty và pháp luật Nhà nước sau khi trở thành nhân viên chính thức của công ty.
                 ● Thời gian thực tập có thể rút ngắn tùy năng lực của bạn. Cơ hội lên chính thức và deal lương sau quá trình thực tập.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.011024, 
                 'longitude' => 105.814989,
@@ -92,7 +92,7 @@ class JobSeeder extends Seeder
                 ● Quy trình chuẩn mực theo tiêu chuẩn Agile.
                 ● Các chế độ phúc lợi, chế độ bảo hiểm theo quy định của Công ty và pháp luật Nhà nước khi trở thành nhân viên chính thức
                 ● Đồng nghiệp thân thiện, được tham gia các hoạt động của công ty: team building, happy hour,...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.011024, 
                 'longitude' => 105.814989,
@@ -138,7 +138,7 @@ class JobSeeder extends Seeder
                 Được đào tạo thêm kiến thức về công nghệ thông tin
                 Được thưởng các ngày nghỉ Lễ, Tết.
                 Được hưởng các chế độ phúc lợi, chế độ bảo hiểm theo quy định của Công ty và pháp luật Nhà nước.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 21.011024, 
                 'longitude' => 105.814989,
@@ -170,7 +170,7 @@ class JobSeeder extends Seeder
                 - Trải nghiệm cùng học tập và làm việc cùng các chuyên gia công nghệ hàng đầu tại Netbase. Được các anh Mentors hàng đầu Netbase hướng dẫn đào tạo.
                 - Xác định lộ trình nghề nghiệp rõ ràng, đãi ngộ xứng đáng và nhiều cơ hội thăng tiến.
                 - Có phụ cấp lương và gửi xe trong thời gian thực tập.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.00822, 
                 'longitude' => 105.807611,
@@ -205,7 +205,7 @@ class JobSeeder extends Seeder
                 - Xác định lộ trình nghề nghiệp rõ ràng, đãi ngộ xứng đáng và nhiều cơ hội thăng tiến.
                 - Có phụ cấp trong thời gian thực tập.
                 - Được tham gia các khóa học đào tạo về kỹ năng phát triển con người.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.00822, 
                 'longitude' => 105.807611,
@@ -244,7 +244,7 @@ class JobSeeder extends Seeder
                 Lương tháng 13 + thưởng triền miên cả năm: thưởng theo dự án, thưởng sáng kiến, thưởng nóng/đột xuất
                 Được hưởng đầy đủ các chính sách về lao động theo luật lao động: Ngày làm 8 tiếng, luân phiên nghỉ thứ Bảy để có thời gian về quê hoặc xả stress, bảo hiểm, nghỉ lễ, nghỉ tết, ốm đau,....
                 Du lịch hàng năm cùng các hoạt động Team Building khác..',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.00822, 
                 'longitude' => 105.807611,
@@ -284,7 +284,7 @@ class JobSeeder extends Seeder
                 viên chính thức.
                 + Được hưởng các chính sách phúc lợi theo quy định của công ty.                
                 ',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.029937, 
                 'longitude' => 105.785086,
@@ -322,7 +322,7 @@ class JobSeeder extends Seeder
                 10. Môi trường làm việc chuyên nghiệp, cởi mở, thân thiện.
                 11. Cơ hội thăng tiến cao trong môi trường tăng trưởng liên tục
                 12. Du lịch 2 lần/năm.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.029937, 
                 'longitude' => 105.785086,
@@ -365,7 +365,7 @@ class JobSeeder extends Seeder
                 10. Môi trường làm việc chuyên nghiệp, cởi mở, thân thiện.
                 11. Cơ hội thăng tiến cao trong môi trường tăng trưởng liên tục
                 12. Du lịch 2 lần/năm..',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 21.029937, 
                 'longitude' => 105.785086,
@@ -402,7 +402,7 @@ class JobSeeder extends Seeder
                 Được nâng cao năng lực làm việc với các buổi đào tạo của công ty về các kiến thức chuyên môn, kỹ năng tiếng Anh và các kỹ năng khác...
                 Được trải nghiệm văn hóa doanh nghiệp trẻ trung, sôi nổi với các hoạt động nội bộ được tổ chức thường xuyên: Sinh nhật thành viên, teambuilding, dã ngoại, du lịch...
                 Văn phòng tầng 14, 18, 16, 19, 20 view đẹp và có nhiều tiện nghi: trà, cafe free, máy chơi game PS5 máy massage, thư viện, boardgame,...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,
                 'latitude' => 20.9978385,
                 'longitude' => 105.7974438,
@@ -451,7 +451,7 @@ class JobSeeder extends Seeder
                 - Tham gia các chương trình team building, dã ngoại, sinh nhật thành viên, du lịch, từ thiện... được tổ chức thường xuyên.
                 - Văn phòng với nhiều tiện nghi: ghế massage, máy chơi game PS5, tủ sách ... Luôn có sẵn trà và cafe free tại công ty. Và 1 tủ đủ loại đồ uống để anh em có thể lấy lại hứng khởi làm việc bất cứ khi nào.
                 - Được cung cấp máy tính làm việc, đóng BHXH sau 2 tháng thử việc và các phúc lợi khác theo quy định của Luật lao động.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,
                 'latitude' => 20.9978385,
                 'longitude' => 105.7974438,
@@ -498,7 +498,7 @@ class JobSeeder extends Seeder
                 Văn phòng tầng 14, 16, 18, 19, 20, cơ sở vật chất tiện nghi: máy massage, PS5, máy phà cafe, thư viện,...
                 Thời gian làm việc: từ 8h30 - 18h, thứ 2 đến thứ 6 hàng tuần.
                 Nghỉ phép 13,5 ngày/năm, lương tháng 13, thưởng thâm niên, BHXH, khám sức khỏe hàng năm và phúc lợi khác đầy đủ theo quy định của luật Lao động',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,
                 'latitude' => 20.9978385,
                 'longitude' => 105.7974438,
@@ -536,7 +536,7 @@ class JobSeeder extends Seeder
                 - Review lương hàng năm
                 - Teambuilding hàng quý                
                 - Văn hóa trẻ, sôi động',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,                
                 'latitude' => 21.031497, 
                 'longitude' => 105.796483,
@@ -577,7 +577,7 @@ class JobSeeder extends Seeder
                 - Bảo hiểm bắt buộc và nghỉ phép theo Luật lao động hiện hành
                 - Khám sức khỏe định kỳ hàng năm
                 - Teambuilding hàng quý',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.031497, 
                 'longitude' => 105.796483,
@@ -618,7 +618,7 @@ class JobSeeder extends Seeder
                 Xét tăng lương 1 năm/lần
                 BHXH, ngày nghỉ lễ tết theo quy định nhà nước, khám sức khỏe định kỳ hàng năm
                 Teambuilding dã ngoại 1 quý/lần',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.031497, 
                 'longitude' => 105.796483,
@@ -664,7 +664,7 @@ class JobSeeder extends Seeder
                 Được làm việc trong một môi trường chuyên nghiệp với các đối tác nước ngoài
                 Du lịch, teambuilding 2-3 lần/năm
                 Hỗ trợ tham gia các khóa đào tạo nâng cao kiến thức và kỹ năng',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 20.997785, 
                 'longitude' => 105.793742,
@@ -707,7 +707,7 @@ class JobSeeder extends Seeder
                 Du lịch, teambuilding 2-3 lần/năm
                 Khám sức khỏe định kỳ cho nhân viên
                 Hỗ trợ tham gia các khóa đào tạo nâng cao kiến thức và kỹ năng',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 20.997785, 
                 'longitude' => 105.793742,
@@ -747,7 +747,7 @@ class JobSeeder extends Seeder
                 Company trip, teambuilding activities (2 times a year)
                 Social and Health insurance under Vietnamese Labor Law, annual health check
                 Young & dynamic working environment',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 20.997785, 
                 'longitude' => 105.793742,
@@ -783,7 +783,7 @@ class JobSeeder extends Seeder
                 Free toàn bộ dịch vụ văn phòng, đồ ăn vặt
                 Hỗ trợ toàn bộ thủ tục giấy tờ, con dấu xác nhận thực tập của sinh viên
                 Được tham gia, trải nghiệm các hoạt đông vui chơi tại công ty: Café , trà , bi lắc...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.0500198, 
                 'longitude' => 105.7973772,
@@ -819,7 +819,7 @@ class JobSeeder extends Seeder
                 Một năm được nghỉ 12 ngày phép
                 Môi trường làm việc năng động, sáng tạo với đội ngũ CBNV đầy nhiệt huyết. Chế độ du lịch hàng năm và tham gia các hoạt động teambuilding, sự kiện công ty, tiệc mặn ngọt,....
                 Thời gian làm việc: T2-T7 (T7 nghỉ cách tuần). Buổi sáng: 8h-12h, buổi chiều: 13h30-17h30',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.0500198, 
                 'longitude' => 105.7973772,
@@ -858,7 +858,7 @@ class JobSeeder extends Seeder
                 - Được tham gia BHYT, BHXH và các chế độ khác theo quy định của Công ty.
                 - Du lịch hàng năm với Công ty, tham gia các hoạt động văn hóa chung của Công ty (Ngày lễ, sinh nhật hàng tháng, tiệc mặn ngọt,...)
                 - Làm việc trong môi trường chuyên nghiệp, năng động, sáng tạo, có nhiều cơ hội phát triển bản thân, thăng tiến trong công việc',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.0500198, 
                 'longitude' => 105.7973772,
@@ -903,7 +903,7 @@ class JobSeeder extends Seeder
                 - Du Lịch                
                 - Đồng phục                
                 - Tăng lương',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.811372, 
                 'longitude' => 106.628735,
@@ -943,7 +943,7 @@ class JobSeeder extends Seeder
                 - 6 tháng/lần xét tăng lương, hoăc ̣tạo cơ hội phát triển lên vị trí quản lý.                
                 - Các chế độ BHXH, BHYT, nghỉ lễ, nghỉ phép, thưởng lễ tết, ...theo quy định của Công ty                
                 - Hoạt động teambuilding, du lịch hàng năm và các chương trình văn hóa của Công ty như: Year End Party, Du lịch, ..., Lương tháng 13, ...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 10.811372, 
                 'longitude' => 106.628735,
@@ -982,7 +982,7 @@ class JobSeeder extends Seeder
                 Thưởng đóng góp sáng kiến, ý tưởng mới trong công việc
                 Chính sách phúc lợi cưới hỏi, ốm đau, thai sản
                 Quà trong các dịp Tết, Trung thu, sinh nhật',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.791298, 
                 'longitude' => 106.688542,
@@ -1029,7 +1029,7 @@ class JobSeeder extends Seeder
                 Thưởng đóng góp sáng kiến, ý tưởng mới trong công việc
                 Chính sách phúc lợi cưới hỏi, ốm đau, thai sản
                 Quà trong các dịp Tết, Trung thu, sinh nhật',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.791298, 
                 'longitude' => 106.688542,
@@ -1073,7 +1073,7 @@ class JobSeeder extends Seeder
                 Khám sức khỏe định kỳ
                 Phòng tập GYM miễn phí
                 Du lịch hàng năm trong/ngoài nước',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.791298, 
                 'longitude' => 106.688542,
@@ -1108,7 +1108,7 @@ class JobSeeder extends Seeder
                 Regular training and professional improvement.
                 Participate in cultural activities with typical colors of the company: Team building, and a series of interesting and attractive collective activities taking place monthly and quarterly at the company.
                 Competitive salary.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.803909, 
                 'longitude' => 106.720066,
@@ -1144,7 +1144,7 @@ class JobSeeder extends Seeder
                 Regular training and professional improvement.
                 Participate in cultural activities with typical colors of the company: Team building, and a series of interesting and attractive collective activities taking place monthly and quarterly at the company.
                 Competitive salary.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.803909, 
                 'longitude' => 106.720066,
@@ -1180,7 +1180,7 @@ class JobSeeder extends Seeder
                 Regular training and professional improvement.
                 Participate in cultural activities with typical colors of the company: Team building, and a series of interesting and attractive collective activities taking place monthly and quarterly at the company.
                 Competitive salary.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.803909, 
                 'longitude' => 106.720066,
@@ -1226,7 +1226,7 @@ class JobSeeder extends Seeder
                 - Ngày nghỉ đặc biệt dành cho nhân viên nữ: 0.5 ngày/ tháng.                
                 - Trợ cấp đối với nhân viên chờ chỉ thị làm việc tại nhà trong các dịp Lễ, Tết.                
                 - Được hưởng những phúc lợi đặc biệt như chương trình quà tết, bánh trung thu, tiền mừng đám cưới (5,000,000 VND), tiền mừng khi sanh con (2,000,000 VND), ...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.78734, 
                 'longitude' => 106.68515,
@@ -1271,7 +1271,7 @@ class JobSeeder extends Seeder
                 - Ngày nghỉ đặc biệt dành cho nhân viên nữ: 0.5 ngày/ tháng.                
                 - Trợ cấp đối với nhân viên chờ chỉ thị làm việc tại nhà trong các dịp Lễ, Tết.                
                 - Được hưởng những phúc lợi đặc biệt như chương trình quà tết, bánh trung thu, tiền mừng đám cưới (5,000,000 VND), tiền mừng khi sanh con (2,000,000 VND), ...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.78734, 
                 'longitude' => 106.68515,
@@ -1312,7 +1312,7 @@ class JobSeeder extends Seeder
                 - Ngày nghỉ đặc biệt dành cho nhân viên nữ: 0.5 ngày/ tháng.                
                 - Trợ cấp đối với nhân viên chờ chỉ thị làm việc tại nhà trong các dịp Lễ, Tết.                
                 - Được hưởng những phúc lợi đặc biệt như chương trình quà tết, bánh trung thu, tiền mừng đám cưới (5,000,000 VND), tiền mừng khi sanh con (2,000,000 VND), ...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.78734, 
                 'longitude' => 106.68515,
@@ -1359,7 +1359,7 @@ class JobSeeder extends Seeder
                 Làm việc trong môi trường chuyên nghiệp, năng động, nhiều cơ hội phát triển năng lực bản thân, đãi ngộ dựa trên năng lực và sự nhiệt tình sáng tạo của từng thành viên.
                 Nghỉ 12 ngày phép năm và các ngày lễ tết, dịp đặc biệt của công ty.
                 Hỗ trợ ăn trưa, gửi xe.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.787655, 
                 'longitude' => 106.645442,
@@ -1407,7 +1407,7 @@ class JobSeeder extends Seeder
                 Tham gia các hoạt động Team building 2 lần/năm.
                 Tham gia các khóa đào tạo, phát triển, nâng cao năng lực làm việc.
                 Làm việc trong môi trường chuyên nghiệp, năng động, nhiều cơ hội phát triển năng lực bản thân, đãi ngộ dựa trên năng lực và hiệu quả công việc của từng thành viên.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.787655, 
                 'longitude' => 106.645442,
@@ -1454,7 +1454,7 @@ class JobSeeder extends Seeder
                 Quà tặng, thưởng vào các dịp lễ, tết (30/4-1/5, 2/9, tết v.v)
                 Các hoạt động ngoài trời với sự hỗ trợ của công ty: câu lạc bộ thể thao, team building, tiệc happy hour, sinh nhật, du lịch, sự kiện nhân viên và gia đình, v.v.
                 Thời gian làm việc: 8 tiếng từ T2 - T6 (8:00- 12:/ 13:00 - 17:00)',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.0113019, 
                 'longitude' => 105.7766342,
@@ -1498,7 +1498,7 @@ class JobSeeder extends Seeder
                 Quà tặng vào các dịp lễ, tết (30/4-1/5, 2/9, tết v.v)
                 Các hoạt động ngoài trời với sự hỗ trợ của công ty: câu lạc bộ thể thao, team building, tiệc happy hour, sinh nhật, du lịch, sự kiện nhân viên và gia đình, v.v.
                 Thời gian làm việc: 8 tiếng từ T2 - T6 (8:00- 12:00/ 13:00- 17:00), Happy hour chiều thứ 6 hàng tuần',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.0113019, 
                 'longitude' => 105.7766342,
@@ -1542,7 +1542,7 @@ class JobSeeder extends Seeder
                 Annual health checkups and other benefits based on labor law
                 Participate to Open Source communities and conferences in Vietnam
                 Modern working space, free coffee',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.009231, 
                 'longitude' => 105.823711,
@@ -1581,7 +1581,7 @@ class JobSeeder extends Seeder
                 Annual health checkups and other benefits based on labor law
                 Participate to Open Source communities and conferences in Vietnam
                 Modern working space, free coffee',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.009231, 
                 'longitude' => 105.823711,
@@ -1620,7 +1620,7 @@ class JobSeeder extends Seeder
                 Miễn phí trà, coffee tại khu vực ăn uống của công ty.
                 Teabreak vào các ngày T2-T4-T6
                 Các hoạt động sôi nổi: Như hoạt động team building kết nối đội nhóm theo quy định',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 20.999533, 
                 'longitude' => 105.831645,
@@ -1663,7 +1663,7 @@ class JobSeeder extends Seeder
                 - Có cơ hội được làm việc tại trụ sở ở Nhật
                 
                 - Tham gia các hoạt động của công ty.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 20.999533, 
                 'longitude' => 105.831645,
@@ -1703,7 +1703,7 @@ class JobSeeder extends Seeder
                 Thưởng các dịp ngày Lễ Tết
                 Team trẻ trung năng động, làm việc theo phong cách Châu Âu
                 Các hoạt động Team Building, Teabreak các ngày thứ 2-4-6',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 20.999533, 
                 'longitude' => 105.831645,
@@ -1745,7 +1745,7 @@ class JobSeeder extends Seeder
                 Cạnh tranh tại đấu trường Mona E-Sport với các môn thể thao HOT như Counter Strike, PES, Fifa... cùng nhiều giải thưởng hấp dẫn
                 Hoạt động thể thao, nâng cao sức khỏe thông qua những trận banh siêu kinh điển mỗi tuần
                 Leader luôn tạo điều kiện học hỏi và phát triển thông qua các buổi Seminar, giúp nâng cao tay nghề, tư duy làm việc chuyên nghiệp',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.790966, 
                 'longitude' => 106.656124,
@@ -1788,7 +1788,7 @@ class JobSeeder extends Seeder
                 Làm việc tại một môi trường thoải mái về đồng phục nhưng chuẩn mực về thái độCạnh tranh tại đấu trường Mona E-Sport với các môn thể thao HOT như Counter Strike, PES, Fifa... cùng nhiều giải thưởng hấp dẫn
                 Hoạt động thể thao, nâng cao sức khỏe thông qua những trận banh siêu kinh điển mỗi tuần
                 Leader luôn tạo điều kiện học hỏi và phát triển thông qua các buổi Seminar, giúp nâng cao tay nghề, tư duy làm việc chuyên nghiệp',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.790966, 
                 'longitude' => 106.656124,
@@ -1830,7 +1830,7 @@ class JobSeeder extends Seeder
                 Cạnh tranh tại đấu trường Mona E-Sport với các môn thể thao HOT như Counter Strike, PES, Fifa... cùng nhiều giải thưởng hấp dẫn
                 Hoạt động thể thao, nâng cao sức khỏe thông qua những trận banh siêu kinh điển mỗi tuần
                 Leader luôn tạo điều kiện học hỏi và phát triển thông qua các buổi Seminar, giúp nâng cao tay nghề, tư duy làm việc chuyên nghiệp',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.790966, 
                 'longitude' => 106.656124,
@@ -1884,7 +1884,7 @@ class JobSeeder extends Seeder
                 Continuous learning and development opportunities through training, workshops, and conferences.
                 Performance evaluations and feedback as requested.
                 Opportunity to make a meaningful impact in the lives of students and educational institutions through innovative software solutions',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.010369, 
                 'longitude' => 105.815518,
@@ -1930,7 +1930,7 @@ class JobSeeder extends Seeder
                 Môi trường làm việc năng động, chuyên nghiệp, khuyến khích tư duy mở và sáng tạo
                 Quà sinh nhật, thưởng Lễ, Tết đầy đủ
                 Được đóng BHXH, BHYT, lương thưởng theo Luật lao động quy định sau khi kết thúc thử việc',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.010369, 
                 'longitude' => 105.815518,
@@ -1984,7 +1984,7 @@ class JobSeeder extends Seeder
                 Cơ hội tham gia các khóa đào tạo nâng cao chuyên môn.
                 Môi trường làm việc năng động, sáng tạo và có cơ hội thăng tiến.
                 Hoạt động du lịch hằng năm, teambuilding và các hoạt động cộng đồng.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.770592, 
                 'longitude' => 106.684486,
@@ -2037,7 +2037,7 @@ class JobSeeder extends Seeder
                 Opportunity to participate in many large projects in Vietnam & abroad;
                 Work on the latest technology platform;
                 Join in company trip, teambuilding & community activities.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 10.770592, 
                 'longitude' => 106.684486,
@@ -2081,7 +2081,7 @@ class JobSeeder extends Seeder
                 Làm việc trong môi trường sáng tạo năng động, được trao quyền làm chủ, nhiều thử thách và cơ hội phát triển năng lực cá nhân, đồng nghiệp thân thiện cởi mở.
                 Cơ hội thăng tiến rõ ràng, định kỳ đánh giá công việc hàng tháng quý năm
                 Sôi nổi các hoạt động phong trào học tập phát triển',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,
                 'latitude' => 21.0200084, 
                 'longitude' => 105.7813238,
@@ -2131,7 +2131,7 @@ class JobSeeder extends Seeder
                 Policies that promote learning activities, knowledge exchange, and sharing.
                 Working Hours: 5 days/week, Monday to Friday
                 Flexible working hours: 8 hours/day, can start between 8:30 am and 9:00 am and end between 5:30 pm and 6:00 pm.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,
                 'latitude' => 21.0200084, 
                 'longitude' => 105.7813238,
@@ -2182,7 +2182,7 @@ class JobSeeder extends Seeder
                 Review performance: 2 đợt/năm
                 Được tham gia các Câu lạc bộ của Công ty: CLB Bóng đá, các CLB Game, CLB Gym, CLB Cầu Lông, Media...
                 Quà Tết, Quà sinh nhật công ty, Quà chào mừng nhân viên mới, Quà các dịp lễ ...',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 2,
                 'latitude' => 21.0200084, 
                 'longitude' => 105.7813238,
@@ -2217,7 +2217,7 @@ class JobSeeder extends Seeder
                 - Hỗ trợ vé xe hàng tháng, các thiết bị văn phòng phẩm phục vụ việc học tập.
                 - Chương trình đào tạo bài bản lên chính thức và hoàn toàn không mất phí.
                 - Chương trình được mở ra hoàn toàn mới mục đích tìm kiếm và đào tạo nguồn nhân lực chất lượng cho Công ty trong tương lai, nên chương trình học rất được đầu tư và không ngừng cải tiến nhằm đảm bảo chất lượng đào tạo là tốt nhất.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 21.017707, 
                 'longitude' => 105.781228,
@@ -2276,7 +2276,7 @@ class JobSeeder extends Seeder
                 Môi trường làm việc: Năng động, vui vẻ được đầu tư tổ chức bài bản; CLB Cầu Lông, Yoga, bóng đá, CLB văn hóa Nhật Bản,...
                 
                 Thời gian: linh hoạt trong giờ hành chính, thứ 2 - thứ 6; nghỉ cuối tuần.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 21.017707, 
                 'longitude' => 105.781228,
@@ -2329,7 +2329,7 @@ class JobSeeder extends Seeder
                 - Chương trình đào tạo bài bản lên chính thức và hoàn toàn không mất phí.
                 
                 - Chương trình được mở ra hoàn toàn mới mục đích tìm kiếm và đào tạo nguồn nhân lực chất lượng cho Công ty trong tương lai, nên chương trình học rất được đầu tư và không ngừng cải tiến nhằm đảm bảo chất lượng đào tạo là tốt nhất.',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 21.017707, 
                 'longitude' => 105.781228,
@@ -2368,7 +2368,7 @@ class JobSeeder extends Seeder
                 Làm việc trong môi trường chuyên nghiệp, được hỗ trợ phát huy
                 Được tham gia các câu lạc bộ của công ty: CLB Bóng đá, CLB Game, CLB Beauty, CLUB Dance...
                 Được tham gia các hoạt động tập thể sôi động của công ty: nghỉ mát hàng năm, teambuilding hàng quý, gala cuối năm....',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 3,
                 'latitude' => 20.972259, 
                 'longitude' => 105.757399,
@@ -2418,7 +2418,7 @@ class JobSeeder extends Seeder
                 Nghỉ sinh lý phụ nữ theo luật lao động hiện hành.
                 Miễn phí đồ uống tại khu ăn uống của công ty;
                 Trợ cấp tiếng Nhật và các chứng chỉ IT liên quan (từ 1000.000 VNĐ - 2.500.000 VNĐ/tháng);',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 20.972259, 
                 'longitude' => 105.757399,
@@ -2463,7 +2463,7 @@ class JobSeeder extends Seeder
                 Phụ cấp thâm niên; phụ cấp chức vụ;
                 Được tham gia các câu lạc bộ của công ty: CLB Bóng đá, CLB Game, CLB Beauty, CLB Dance...
                 Được tham gia các hoạt động tập thể sôi động của công ty: nghỉ mát hàng năm, teambuilding hàng quý, gala cuối năm....',
-                'expire_at' => '2026/08/15',
+                'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
                 'interview_round_num' => 1,
                 'latitude' => 20.972259, 
                 'longitude' => 105.757399,
@@ -2486,7 +2486,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2509,7 +2509,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2532,7 +2532,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2555,7 +2555,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2578,7 +2578,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2601,7 +2601,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2624,7 +2624,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2647,7 +2647,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2670,7 +2670,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
@@ -2693,7 +2693,7 @@ class JobSeeder extends Seeder
             //     'description' => '',
             //     'requirements' => '',
             //     'benefits' => '',
-            //     'expire_at' => '2026/08/15',
+            //     'expire_at' => Carbon::now()->addMonth()->setDay(rand(1, 28))->format('Y/m/d'),
             //     'interview_round_num' => 3,
             //     'latitude' => , 
             //     'longitude' => ,
