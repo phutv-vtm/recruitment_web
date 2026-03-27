@@ -32,5 +32,30 @@ class DatabaseSeeder extends Seeder
         $this->call([ActivitySeeder::class]);
         // $this->call([OtherSeeder::class]);
         $this->call([JobApplyingSeeder::class]);
+
+        $this->resetSequences();
+    }
+
+    private function resetSequences(): void
+    {
+        $tables = [
+            'users',
+            'locations',
+            'jtypes',
+            'jlevels',
+            'industries',
+            'jobs',
+            'educations',
+            'experiences',
+            'skills',
+            'projects',
+            'certificates',
+            'activities',
+            'job_applying',
+        ];
+
+        foreach ($tables as $table) {
+            \DB::statement("SELECT setval('{$table}_id_seq', COALESCE((SELECT MAX(id) FROM {$table}), 1))");
+        }
     }
 }

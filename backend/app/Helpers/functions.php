@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 function getCurUser(int $role): object
 {
@@ -29,74 +29,158 @@ function formatDateTime($dt)
 
     return $res;
 }
-function uploadFile2GgDrive(
+
+// --- Supabase Storage helpers ---
+
+function _sbBucket(string $folder): string
+{
+    static $map = [
+        'candidate_avatars' => 'candidate-avatars',
+        'resumes'           => 'resumes',
+        'certificates'      => 'certificates',
+        'prizes'            => 'prizes',
+        'applied_resumes'   => 'applied-resumes',
+        'employer_logos'    => 'employer-logos',
+        'employer_images'   => 'employer-images',
+        'suitable_resumes'  => 'suitable-resumes',
+    ];
+    return $map[$folder] ?? str_replace('_', '-', $folder);
+}
+
+function _sbHeaders(): array
+{
+    $key = env('SUPABASE_SERVICE_ROLE_KEY');
+    return [
+        'Authorization' => 'Bearer ' . $key,
+        'apikey'        => $key,
+    ];
+}
+
+function _sbBaseUrl(): string
+{
+    return rtrim(env('SUPABASE_URL'), '/');
+}
+
+function supabasePublicUrl(string $folder, string $filename): string
+{
+    return _sbBaseUrl() . '/storage/v1/object/public/' . _sbBucket($folder) . '/' . rawurlencode($filename);
+}
+
+function supabaseCopyFile(string $srcFolder, string $srcFilename, string $destFolder, string $destFilename): void
+{
+    $response = Http::withHeaders(array_merge(_sbHeaders(), ['Content-Type' => 'application/json']))
+        ->post(_sbBaseUrl() . '/storage/v1/object/copy', [
+            'bucketId'          => _sbBucket($srcFolder),
+            'sourceKey'         => $srcFilename,
+            'destinationBucket' => _sbBucket($destFolder),
+            'destinationKey'    => $destFilename,
+        ]);
+
+    if (!$response->successful()) {
+        throw new \Exception('Supabase copy failed [' . $response->status() . ']: ' . $response->body());
+    }
+}
+
+function supabaseDeleteFiles(string $folder, array $filenames): void
+{
+    Http::withHeaders(array_merge(_sbHeaders(), ['Content-Type' => 'application/json']))
+        ->delete(_sbBaseUrl() . '/storage/v1/object/' . _sbBucket($folder), [
+            'prefixes' => $filenames,
+        ]);
+}
+
+function supabaseFileExists(string $folder, string $filename): bool
+{
+    $res = Http::withHeaders(_sbHeaders())
+               ->head(_sbBaseUrl() . '/storage/v1/object/' . _sbBucket($folder) . '/' . $filename);
+    return $res->successful();
+}
+
+function supabaseUploadContent(string $folder, string $filename, string $content, string $mimeType = 'text/plain'): void
+{
+    $bucket   = _sbBucket($folder);
+    $response = Http::withHeaders(array_merge(_sbHeaders(), ['x-upsert' => 'true']))
+        ->withBody($content, $mimeType)
+        ->post(_sbBaseUrl() . "/storage/v1/object/{$bucket}/" . rawurlencode($filename));
+
+    if (!$response->successful()) {
+        throw new \Exception('Supabase upload failed [' . $response->status() . ']: ' . $response->body());
+    }
+}
+
+function supabaseDownload(string $folder, string $filename): ?string
+{
+    $res = Http::withHeaders(_sbHeaders())
+               ->get(_sbBaseUrl() . '/storage/v1/object/' . _sbBucket($folder) . '/' . $filename);
+    return $res->successful() ? $res->body() : null;
+}
+
+function uploadToStorage(
     $file,
     $folder,
     $filename = null,
     $option = ['isImage' => false, 'isText' => false]
 ) {
     $isImage = isset($option['isImage']) && $option['isImage'];
-    $isText = isset($option['isText']) && $option['isText'];
+    $isText  = isset($option['isText'])  && $option['isText'];
 
     $ext = $file->getClientOriginalExtension();
     if (!$filename) {
-        $filename = $file->getClientOriginalName();
-        for ($i = strlen($filename) - 1; $filename[$i] != '.'; $i--) {
-        } //to exclude extension
-        $filename = substr($filename, 0, $i) . '_' . time() . '.' . $ext;
+        $originalName = $file->getClientOriginalName();
+        $i = strrpos($originalName, '.');
+        $baseName = substr($originalName, 0, $i);
+        // Supabase rejects non-ASCII characters in storage keys
+        $baseName = transliterator_transliterate('Any-Latin; Latin-ASCII', $baseName);
+        $baseName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $baseName);
+        $filename = $baseName . '_' . time() . '.' . $ext;
     }
-    if ($isText) {
-        $file = 'data:image/' . $file->getClientOriginalExtension() . ';base64,' .
-            base64_encode(file_get_contents($file));
-        Storage::put($folder . '/' . $filename, $file);
-    } else Storage::putFileAs($folder, $file, $filename);
 
-    //get url:
-    $path = Storage::url($folder . '/' . $filename);
-    $start = strpos($path, 'id=') + strlen('id=');
-    $end = strpos($path, '&export=media');
-    $fileId = substr($path, $start, $end - $start);
-    if ($isImage)
-        $ret = "https://lh3.googleusercontent.com/d/{$fileId}?authuser=0";
-    else if ($isText) $ret = $folder . '/' . $filename;
-    else $ret = 'https://drive.google.com/file/d/' . $fileId . '/view';
+    $bucket   = _sbBucket($folder);
+    $mimeType = $isText ? 'text/plain' : $file->getMimeType();
+    $content  = $isText
+        ? 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($file->getRealPath()))
+        : file_get_contents($file->getRealPath());
 
-    return $ret;
+    $response = Http::withHeaders(array_merge(_sbHeaders(), ['x-upsert' => 'true']))
+        ->withBody($content, $mimeType)
+        ->post(_sbBaseUrl() . "/storage/v1/object/{$bucket}/" . rawurlencode($filename));
+
+    if (!$response->successful()) {
+        throw new \Exception('Supabase upload failed [' . $response->status() . ']: ' . $response->body());
+    }
+
+    if ($isText) return $folder . '/' . $filename;
+    return supabasePublicUrl($folder, $filename);
 }
 
-function getViewLinkFromGgStorageUrl($url)
+function getStorageFileUrl(string $path): string
 {
-    $start = strpos($url, 'id=') + strlen('id=');
-    $end = strpos($url, '&export=media');
-    $fileId = substr($url, $start, $end - $start);
-
-    return 'https://drive.google.com/file/d/' . $fileId . '/view';
-}
-function getImageLinkFromGgStorageUrl($url)
-{
-    $start = strpos($url, 'id=') + strlen('id=');
-    $end = strpos($url, '&export=media');
-    $fileId = substr($url, $start, $end - $start);
-
-    return "https://lh3.googleusercontent.com/d/{$fileId}?authuser=0";
+    [$folder, $filename] = explode('/', $path, 2);
+    return supabasePublicUrl($folder, $filename);
 }
 
-function deleteGgImage($_path)
+function getStorageImageUrl(string $path): string
 {
+    [$folder, $filename] = explode('/', $path, 2);
+    return supabasePublicUrl($folder, $filename);
+}
+
+function deleteStorageFile(string $_path): void
+{
+    [$folder, $basename] = explode('/', $_path, 2);
+    $filenames = [];
     foreach (['png', 'jpg', 'jpeg', 'webp', ''] as $ext) {
-        if ($ext) $path = $_path . '.' . $ext;
-        else $path = $_path;
-        if (Storage::fileExists($path))
-            Storage::delete($path);
+        $filenames[] = $ext ? $basename . '.' . $ext : $basename;
     }
+    supabaseDeleteFiles($folder, $filenames);
 }
-function checkImageExists($_path)
-{
-    foreach (['png', 'jpg', 'jpeg', 'webp', ''] as $ext) {
-        if ($ext) $path = $_path . '.' . $ext;
-        else $path = $_path;
-        if (Storage::fileExists($path)) return $ext;
-    }
 
+function checkStorageFile(string $_path): string|false
+{
+    [$folder, $basename] = explode('/', $_path, 2);
+    foreach (['png', 'jpg', 'jpeg', 'webp', ''] as $ext) {
+        $filename = $ext ? $basename . '.' . $ext : $basename;
+        if (supabaseFileExists($folder, $filename)) return $ext;
+    }
     return false;
 }

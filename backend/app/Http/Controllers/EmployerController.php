@@ -15,7 +15,6 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 // use Illuminate\Support\Facades\Redis;
 
@@ -53,25 +52,23 @@ class EmployerController extends Controller
         if ($req->hasFile('logo_file')) {
             $logo_file = $req->file('logo_file');
             //delete old logo:
-            foreach (['png', 'jpg', 'jpeg', 'webp'] as $ext) {
-                $path = 'employer_logos/logo_' . $employer_id . '.' . $ext;
-                if (Storage::fileExists($path))
-                    Storage::delete($path);
-            }
+            supabaseDeleteFiles('employer_logos', array_map(
+                fn($ext) => 'logo_' . $employer_id . '.' . $ext,
+                ['png', 'jpg', 'jpeg', 'webp']
+            ));
             $filename = 'logo_' . $employer_id . '.' . $logo_file->getClientOriginalExtension();
-            $path = uploadFile2GgDrive($logo_file, 'employer_logos', $filename, ['isImage' => true]);
+            $path = uploadToStorage($logo_file, 'employer_logos', $filename, ['isImage' => true]);
             $update_data['logo'] = $path;
         }
         if ($req->hasFile('image_file')) {
             $image_file = $req->file('image_file');
             //delete old image:
-            foreach (['png', 'jpg', 'jpeg', 'webp'] as $ext) {
-                $path = 'employer_images/image_' . $employer_id . '.' . $ext;
-                if (Storage::fileExists($path))
-                    Storage::delete($path);
-            }
+            supabaseDeleteFiles('employer_images', array_map(
+                fn($ext) => 'image_' . $employer_id . '.' . $ext,
+                ['png', 'jpg', 'jpeg', 'webp']
+            ));
             $filename = 'image_' . $employer_id . '.' . $image_file->getClientOriginalExtension();
-            $path = uploadFile2GgDrive($image_file, 'employer_images', $filename, ['isImage' => true]);
+            $path = uploadToStorage($image_file, 'employer_images', $filename, ['isImage' => true]);
             $update_data['image'] = $path;
         }
         if ($req->has('delete_logo')) $update_data['logo'] = null;

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Prize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class PrizeController extends Controller
 {
@@ -40,19 +40,22 @@ class PrizeController extends Controller
     public function create(Request $req)
     {
         $candidate_id = Auth::user()->id;
-        $prize = new Prize;
-        $prize->candidate_id = $candidate_id;
-        $prize->name = $req->name;
-        $prize->receive_date = $req->receive_date;
-        $prize->save();
-        //process saving file:
-        $file = $req->file('image');
-        if ($file) {
-            $filename = 'prize' . '_' . $prize->id . '.' . $file->getClientOriginalExtension();
-            $path = uploadFile2GgDrive($file, 'prizes', $filename, ['isImage' => true]);
-            $prize->image = $path;
+
+        DB::transaction(function () use ($req, $candidate_id) {
+            $prize = new Prize;
+            $prize->candidate_id = $candidate_id;
+            $prize->name = $req->name;
+            $prize->receive_date = $req->receive_date;
             $prize->save();
-        }
+            //process saving file:
+            $file = $req->file('image');
+            if ($file) {
+                $filename = 'prize' . '_' . $prize->id . '.' . $file->getClientOriginalExtension();
+                $path = uploadToStorage($file, 'prizes', $filename, ['isImage' => true]);
+                $prize->image = $path;
+                $prize->save();
+            }
+        });
 
         return response()->json("created successfully");
     }
@@ -72,13 +75,12 @@ class PrizeController extends Controller
 
         $file = $req->file('image');
         if ($file) {
-            foreach (['png', 'jpg', 'jpeg', 'webp'] as $ext) {
-                $path = 'prizes/prize_' . $req->id . '.' . $ext;
-                if (Storage::fileExists($path))
-                    Storage::delete($path);
-            }
+            supabaseDeleteFiles('prizes', array_map(
+                fn($ext) => 'prize_' . $req->id . '.' . $ext,
+                ['png', 'jpg', 'jpeg', 'webp']
+            ));
             $filename = 'prize' . '_' . $prize->id . '.' . $file->getClientOriginalExtension();
-            $path = uploadFile2GgDrive($file, 'prizes', $filename, ['isImage' => true]);
+            $path = uploadToStorage($file, 'prizes', $filename, ['isImage' => true]);
             $prize->image = $path;
         }
         if ($req->delete_img) {

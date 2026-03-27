@@ -8,7 +8,6 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
@@ -22,9 +21,11 @@ class CandidateController extends Controller
     public function getCurrentAvatar()
     {
         $path = Candidate::find(Auth::user()->id)->avatar;
-        if ($path)
-            return Storage::get($path);
-        else return response()->json();
+        if ($path) {
+            [$folder, $filename] = explode('/', $path, 2);
+            return supabaseDownload($folder, $filename);
+        }
+        return response()->json();
     }
 
     public function update(Request $req)
@@ -55,16 +56,16 @@ class CandidateController extends Controller
         if ($file) {
             $ext = $file->getClientOriginalExtension();
             //delete old avatar image:
-            deleteGgImage('candidate_avatars/avatar_' . $id . '_0');
+            deleteStorageFile('candidate_avatars/avatar_' . $id . '_0');
 
             $filename = 'avatar_' . $id . '_0';
-            $path = uploadFile2GgDrive($file, 'candidate_avatars', $filename, ['isText' => true]);
-            $url = uploadFile2GgDrive($file, 'candidate_avatars', $filename . '.' . $ext, ['isImage' => true]);
+            $path = uploadToStorage($file, 'candidate_avatars', $filename, ['isText' => true]);
+            $url = uploadToStorage($file, 'candidate_avatars', $filename . '.' . $ext, ['isImage' => true]);
             $candidate->avatar = $path;
             $candidate->avatar_url = $url;
         }
         if ($req->delete_img) {
-            deleteGgImage('candidate_avatars/avatar_' . $id . '_0');
+            deleteStorageFile('candidate_avatars/avatar_' . $id . '_0');
             $candidate->avatar = null;
             $candidate->avatar_url = null;
         }

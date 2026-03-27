@@ -11,7 +11,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -184,36 +183,37 @@ class JobController extends Controller
         $current_time = Carbon::now();
         $use_suitable_resume = $req->use_suitable_resume;
 
-        $new_applying = JobApplying::create([
-            'job_id' => $req->id,
-            'candidate_id' => $candidate_id,
-            'created_at' => $current_time,
-            'updated_at' => $current_time
-        ]);
+        DB::transaction(function () use ($req, $candidate_id, $current_time, $use_suitable_resume) {
+            $new_applying = JobApplying::create([
+                'job_id' => $req->id,
+                'candidate_id' => $candidate_id,
+                'created_at' => $current_time,
+                'updated_at' => $current_time
+            ]);
 
-        $url = "";
-        $skill_text = "";
-        if ($use_suitable_resume == 1) {
-            $new_path = "applied_resumes/applied_resume_{$new_applying->id}.png";
-            Storage::copy("suitable_resumes/suitable_resume_{$req->candidate_bookmark_id}.png", $new_path);
-            $url = getViewLinkFromGgStorageUrl(Storage::url($new_path));
-        } else {
-            if ($req->hasFile('cv')) {
-                $url = uploadFile2GgDrive($req->cv, 'applied_resumes');
-                $skill_text = $req->skill_text;
-            } else if ($req->has('resume_id')) {
+            $url = "";
+            $skill_text = "";
+            if ($use_suitable_resume == 1) {
                 $new_path = "applied_resumes/applied_resume_{$new_applying->id}.png";
-                Storage::copy("resumes/resume_{$req->resume_id}.png", $new_path);
-                $url = getViewLinkFromGgStorageUrl(Storage::url($new_path));
-                $skill_text = Resume::find($req->resume_id)->skill_text;
+                supabaseCopyFile('suitable_resumes', "suitable_resume_{$req->candidate_bookmark_id}.png", 'applied_resumes', "applied_resume_{$new_applying->id}.png");
+                $url = getStorageFileUrl($new_path);
+            } else {
+                if ($req->hasFile('cv')) {
+                    $url = uploadToStorage($req->cv, 'applied_resumes');
+                    $skill_text = $req->skill_text;
+                } else if ($req->has('resume_id')) {
+                    $new_path = "applied_resumes/applied_resume_{$new_applying->id}.png";
+                    supabaseCopyFile('resumes', "resume_{$req->resume_id}.png", 'applied_resumes', "applied_resume_{$new_applying->id}.png");
+                    $url = getStorageFileUrl($new_path);
+                    $skill_text = Resume::find($req->resume_id)->skill_text;
+                }
             }
-        }
 
-        JobApplying::where('id', $new_applying->id)
-            ->update([
+            $new_applying->update([
                 'resume_link' => $url,
                 'skill_text' => $skill_text
             ]);
+        });
 
         return response()->json('applied successfully');
     }
