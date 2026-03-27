@@ -88,7 +88,7 @@ jobs:
     steps:
       - name: Trigger Render backend deploy
         run: |
-          curl -X POST "https://api.render.com/deploy/srv-d3qb56m3jp1c738g18a0?key=${{ secrets.RENDER_API_KEY }}"
+          curl -X POST "https://api.render.com/deploy/srv-d3qb56m3jp1c738g18a0?key=${{ secrets.RENDER_BE_DEPLOY_KEY }}"
 
   deploy-frontend:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -97,7 +97,7 @@ jobs:
     steps:
       - name: Trigger Render frontend deploy
         run: |
-          curl -X POST "https://api.render.com/deploy/srv-d3qb7u3ipnbc73ae3nag?key=${{ secrets.RENDER_API_KEY }}"
+          curl -X POST "https://api.render.com/deploy/srv-d3qb7u3ipnbc73ae3nag?key=${{ secrets.RENDER_FE_DEPLOY_KEY }}"
 
   notify:
     if: always() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
