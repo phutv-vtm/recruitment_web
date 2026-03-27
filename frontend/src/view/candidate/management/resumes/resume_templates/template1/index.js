@@ -15,7 +15,7 @@ import { TemplateContext } from "../TemplateWrapper";
 // ─── Leaf components (defined outside Template1 to prevent remount on re-render) ───
 
 function Skill({ infor, index, bgColor }) {
-  const { cvSkills, setCvSkills } = useContext(TemplateContext);
+  const { setCvSkills } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -49,7 +49,7 @@ function Skill({ infor, index, bgColor }) {
 }
 
 function Certificate({ infor, index, bgColor }) {
-  const { cvCertificates, setCvCertificates } = useContext(TemplateContext);
+  const { setCvCertificates } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [name, setName] = useState("");
   const [receiveDate, setReceiveDate] = useState("");
@@ -89,7 +89,7 @@ function Certificate({ infor, index, bgColor }) {
 }
 
 function Prize({ infor, index, bgColor }) {
-  const { cvPrizes, setCvPrizes } = useContext(TemplateContext);
+  const { setCvPrizes } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [name, setName] = useState("");
   const [receiveDate, setReceiveDate] = useState("");
@@ -129,7 +129,7 @@ function Prize({ infor, index, bgColor }) {
 }
 
 function Education({ infor, index, menu, bgColor }) {
-  const { cvEducations, setCvEducations } = useContext(TemplateContext);
+  const { setCvEducations } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
@@ -217,7 +217,7 @@ function Education({ infor, index, menu, bgColor }) {
 }
 
 function Experience({ infor, index, bgColor }) {
-  const { cvExperiences, setCvExperiences } = useContext(TemplateContext);
+  const { setCvExperiences } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -305,7 +305,7 @@ function Experience({ infor, index, bgColor }) {
 }
 
 function Project({ infor, index, menu, bgColor }) {
-  const { cvProjects, setCvProjects } = useContext(TemplateContext);
+  const { setCvProjects } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
@@ -433,7 +433,7 @@ function Project({ infor, index, menu, bgColor }) {
 }
 
 function Activity({ infor, index, menu, bgColor }) {
-  const { cvActivities, setCvActivities } = useContext(TemplateContext);
+  const { setCvActivities } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [organization, setOrganization] = useState("");
   const [role, setRole] = useState("");
@@ -537,7 +537,7 @@ function Activity({ infor, index, menu, bgColor }) {
 }
 
 function Other({ infor, index, bgColor }) {
-  const { cvOthers, setCvOthers } = useContext(TemplateContext);
+  const { setCvOthers } = useContext(TemplateContext);
   const { cvMode } = useContext(CandidateContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
