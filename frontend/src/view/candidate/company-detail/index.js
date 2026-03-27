@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import "./index.css";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -13,7 +12,8 @@ import { MdLocationOn } from "react-icons/md";
 import defaultCompanyLogo from "../../../assets/images/default_company_logo.png";
 import { isNullObject } from "../../../common/functions";
 import redLocationIcon from "../../../assets/images/icons/red_location.png";
-import { hereMapConfig } from "../../../services";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default function Company() {
   const { id } = useParams();
@@ -41,39 +41,37 @@ export default function Company() {
 
   useEffect(() => {
     if (!curMap.current) {
-      let platform = new H.service.Platform({
-        apikey: hereMapConfig.apiKey,
+      const map = L.map(mapRef.current, {
+        center: [16, 106],
+        zoom: 6,
       });
 
-      var defaultLayers = platform.createDefaultLayers();
-
-      var map = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
-        center: { lat: 50, lng: 5 },
-        zoom: 15,
-        pixelRatio: window.devicePixelRatio || 1,
-      });
-
-      window.addEventListener("resize", () => map.getViewPort().resize());
-      // eslint-disable-next-line no-unused-vars
-      var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-      H.ui.UI.createDefault(map, defaultLayers);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
 
       curMap.current = map;
     }
+
+    return () => {
+      if (curMap.current) {
+        curMap.current.remove();
+        curMap.current = null;
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (!isNullObject(infor)) {
-      const position = { lat: infor.latitude, lng: infor.longitude };
-      var marker = new H.map.Marker(position, {
-        icon: new H.map.Icon(redLocationIcon, {
-          size: new H.math.Size(38, 38),
-        }),
+    if (!isNullObject(infor) && curMap.current) {
+      const icon = L.icon({
+        iconUrl: redLocationIcon,
+        iconSize: [38, 38],
+        iconAnchor: [19, 38],
       });
-      curMap.current.addObject(marker);
-      curMap.current.setZoom(15);
-      curMap.current.setCenter(position);
+      L.marker([infor.latitude, infor.longitude], { icon }).addTo(curMap.current);
+      curMap.current.setView([infor.latitude, infor.longitude], 15);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infor]);

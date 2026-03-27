@@ -354,11 +354,12 @@ function JobList() {
                       </div>
                     )}
                   </div>
-                  <InputGroup size="sm" style={{ width: "220px" }}>
+                  <InputGroup size="sm" style={{ width: "230px" }}>
+                    <InputGroup.Text className="bg-white">Bán kính</InputGroup.Text>
                     <Form.Control
                       type="number"
                       aria-label="job-distance-input"
-                      placeholder="Nhập khoảng cách"
+                      placeholder="Khoảng cách"
                       className="border-end-0"
                       onChange={(e) => setDistance(e.target.value)}
                     />

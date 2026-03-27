@@ -7,6 +7,3 @@ export const emailjsConfig = {
   },
 };
 
-export const hereMapConfig = {
-  apiKey: "6oHbb-JxL6jRASoosnCuzaDmWkAoeYkmbVlM9ewPd1s"
-}

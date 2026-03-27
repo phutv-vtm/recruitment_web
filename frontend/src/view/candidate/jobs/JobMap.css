@@ -1,0 +1,20 @@
+#job-map {
+    width: 100%;
+    height: calc(100vh - 330px);
+    min-height: 420px;
+}
+
+/* md: form bắt đầu xuống dòng */
+@media (max-width: 991px) {
+    #job-map {
+        height: calc(100vh - 460px);
+        min-height: 380px;
+    }
+}
+
+/* sm: form xuống dòng hoàn toàn */
+@media (max-width: 767px) {
+    #job-map {
+        height: 380px;
+    }
+}
