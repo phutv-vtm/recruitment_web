@@ -190,7 +190,7 @@ function Job() {
                   <div className="clearfix mt-3 mb-2">
                     <button
                       className={clsx("btn bg-main text-white ts-sm", isLoadingCanApply && "px-5")}
-                      disabled={isLoadingCanApply || !canApply}
+                      disabled={isLoadingCanApply || (isAuth && !canApply)}
                       onClick={checkLoggedIn}
                     >
                       {isLoadingCanApply ? (
@@ -198,7 +198,7 @@ function Job() {
                           className="spinner-border spinner-border-sm"
                           role="status"
                         />
-                      ) : canApply ? (
+                      ) : !isAuth || canApply ? (
                         "Ứng tuyển"
                       ) : (
                         "Đã ứng tuyển"
